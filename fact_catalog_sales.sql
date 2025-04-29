@@ -1,6 +1,6 @@
 {{ config(
     materialized='incremental',
-    unique_key=['item_sk', 'order_number']
+    unique_key=['item_sk','order_number']
 ) }}
 
 
