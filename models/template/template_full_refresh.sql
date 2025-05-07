@@ -1,5 +1,3 @@
---Full Refresh
-
 {% set src_table = var('full_load_src_table') %}
 {% set tgt_table = var('full_load_tgt_table') %}
  
