@@ -1,0 +1,56 @@
+version: 2
+
+sources:
+  - name: TPCDS_SF10TCL
+    database: SNOWFLAKE_SAMPLE_DB
+    schema: TPCDS_SF10TCL
+    tables:
+      - name: CALL_CENTER
+        description: "Information about call centers."
+      - name: CATALOG_PAGE
+        description: "Details about catalog pages."
+      - name: CUSTOMER
+        description: "Customer information."
+      - name: CUSTOMER_ADDRESS
+        description: "Addresses of customers."
+      - name: CUSTOMER_DEMOGRAPHICS
+        description: "Demographics information of customers."
+      - name: DATE_DIM
+        description: "Date dimension details."
+      - name: HOUSEHOLD_DEMOGRAPHICS
+        description: "Household demographics data."
+      - name: INCOME_BAND
+        description: "Income band classification."
+      - name: INVENTORY
+        description: "Inventory details for products."
+      - name: ITEM
+        description: "Details of items available for sale."
+      - name: PROMOTION
+        description: "Information about promotions."
+      - name: REASON
+        description: "Reasons for various events/actions."
+      - name: SHIP_MODE
+        description: "Shipping modes."
+      - name: STORE
+        description: "Information about stores."
+      - name: STORE_SALES
+        description: "Sales details from stores."
+      - name: TIME_DIM
+        description: "Time dimension details."
+      - name: WAREHOUSE
+        description: "Warehouse information."
+      - name: WEB_PAGE
+        description: "Details about web pages."
+      - name: WEB_SALES
+        description: "Sales details from the web."
+      - name: WEB_SITE
+        description: "Information about web sites."
+      - name: CATALOG_RETURNS
+        description: "Missed"
+      - name: catalog_sales
+        description: "Missed"
+      - name: STORE_RETURNS
+        description: "Missed"  
+      - name: WEB_RETURNS
+        description: "Missed"  
+        
