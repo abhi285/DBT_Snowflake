@@ -1,0 +1,96 @@
+version: 2
+
+semantic_models:
+  - name: int_customer_returns
+    model: ref('int_customer_returns')
+
+    defaults:
+      agg_time_dimension: return_date
+
+    entities:
+      - name: customer
+        type: primary
+        expr: customer_sk
+
+    dimensions:
+      - name: return_date
+        type: time
+        type_params:
+          time_granularity: day
+
+    measures:
+      - name: total_return_amount
+        description: Total amount refunded due to returns
+        agg: sum
+        expr: total_return_amount
+        agg_time_dimension: return_date
+
+      - name: num_returns
+        description: Total number of return records
+        agg: sum
+        expr: num_returns
+        agg_time_dimension: return_date
+
+      - name: avg_return_quantity
+        description: Average quantity returned per transaction
+        agg: average
+        expr: avg_return_quantity
+        agg_time_dimension: return_date
+
+      - name: return_rate
+        description: Rate of returns relative to total returned quantity and amount
+        agg: average
+        expr: return_rate
+        agg_time_dimension: return_date
+
+      - name: unique_customers_with_returns
+        description: Count of unique customers who returned items
+        agg: count_distinct
+        expr: customer_sk
+        agg_time_dimension: return_date
+
+metrics:
+  - name: total_return_amount
+    label: Total Return Amount
+    description: Sum of all return amounts across channels
+    type: simple
+    type_params:
+      measure: total_return_amount
+
+  - name: num_returns
+    label: Number of Returns
+    description: Total number of return transactions
+    type: simple
+    type_params:
+      measure: num_returns
+
+  - name: avg_return_quantity
+    label: Average Return Quantity
+    description: Average number of items returned per return
+    type: simple
+    type_params:
+      measure: avg_return_quantity
+
+  - name: return_rate
+    label: Return Rate
+    description: Return rate calculated from return amount and quantity
+    type: simple
+    type_params:
+      measure: return_rate
+
+  - name: customers_with_returns
+    label: Customers With Returns
+    description: Number of distinct customers who made returns
+    type: simple
+    type_params:
+      measure: unique_customers_with_returns
+
+  - name: returns_per_customer
+    label: Returns Per Customer
+    description: Ratio of number of returns to number of customers with returns
+    type: derived
+    type_params:
+      expr: num_returns / customers_with_returns
+      metrics:
+        - name: num_returns
+        - name: customers_with_returns
