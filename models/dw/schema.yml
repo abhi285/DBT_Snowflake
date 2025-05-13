@@ -40,7 +40,7 @@ models:
       - name: order_number
         tests:
           - not_null
-      - name: customer_sk
+      - name: BILL_CUSTOMER_SK
         tests:
           - relationships:
               to: ref('dim_customer')
