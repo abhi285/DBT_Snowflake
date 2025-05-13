@@ -4,32 +4,32 @@ models:
   - name: dim_customer
     description: Dimension table for customer core information.
     columns:
-      - name: c_customer_sk
+      - name: CUSTOMER_SK
         description: Primary key for customer dimension
         tests:
           - unique
           - not_null
-      - name: c_customer_id
+      - name: CUSTOMER_ID
         description: Natural key from source system
         tests:
           - not_null
-      - name: c_email_address
+      - name: EMAIL_ADDRESS
         description: Customer's email address
         tests:
           - not_null
 
-  - name: dim_customer_address
+  - name: dim_customer_addr
     description: Customer address dimension
     columns:
-      - name: ca_address_sk
+      - name: ADDRESS_SK
         tests:
           - unique
           - not_null
 
-  - name: dim_customer_demographics
+  - name: dim_customer_demo
     description: Customer demographic attributes
     columns:
-      - name: cd_demo_sk
+      - name: demo_sk
         tests:
           - unique
           - not_null
@@ -37,26 +37,26 @@ models:
   - name: fact_catalog_sales
     description: Sales fact table from catalog channel
     columns:
-      - name: cs_order_number
+      - name: order_number
         tests:
           - not_null
-      - name: cs_customer_sk
+      - name: customer_sk
         tests:
           - relationships:
               to: ref('dim_customer')
-              field: c_customer_sk
-      - name: cs_item_sk
+              field: customer_sk
+      - name: item_sk
         tests:
           - not_null
 
   - name: fact_catalog_returns
     description: Catalog returns fact table
     columns:
-      - name: cr_order_number
+      - name: order_number
         tests:
           - not_null
-      - name: cr_returning_customer_sk
+      - name: returning_customer_sk
         tests:
           - relationships:
               to: ref('dim_customer')
-              field: c_customer_sk
+              field: customer_sk
