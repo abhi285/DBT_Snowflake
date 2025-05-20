@@ -17,3 +17,5 @@ final as (
    from days
 )
 select * from final
+
+--new

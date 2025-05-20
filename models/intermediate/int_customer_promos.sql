@@ -1,6 +1,6 @@
 -- int_customer_promos.sql
 -- Identifies most frequent purchase channel and call center engagement
-
+--ab
 WITH channel_sales AS (
     select customer_sk, 'store' AS channel,  dd.DATE as sold_date
         from {{ ref("fact_store_sales") }} sales_table
