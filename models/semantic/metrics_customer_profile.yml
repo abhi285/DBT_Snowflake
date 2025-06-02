@@ -1,0 +1,110 @@
+version: 2
+
+semantic_models:
+  - name: fct_customer_profile
+    model: ref('int_customer_profile')
+
+    defaults:
+      agg_time_dimension: order_date
+
+    entities:
+      - name: customer
+        type: primary
+        expr: customer_sk
+
+    dimensions:
+      - name: income_range
+        type: categorical
+        description: Income band from household demographics
+
+      - name: customer_region
+        type: categorical
+        description: Customer region from address
+
+      - name: order_date
+        type: time
+        type_params:
+          time_granularity: day
+
+    measures:
+      - name: active_since_days
+        description: Number of days since first purchase
+        agg: average
+        expr: active_since_days
+        agg_time_dimension: order_date
+
+      - name: avg_days_between_purchases
+        description: Average time gap between purchases
+        agg: average
+        expr: avg_days_between_purchases
+        agg_time_dimension: order_date
+
+      - name: total_sales
+        description: Total revenue across all orders
+        agg: sum
+        expr: total_sales_amount
+        agg_time_dimension: order_date
+
+      - name: total_orders
+        description: Total number of orders
+        agg: sum
+        expr: total_orders
+        agg_time_dimension: order_date
+
+      - name: total_quantity
+        description: Total quantity of items ordered
+        agg: sum
+        expr: total_quantity
+        agg_time_dimension: order_date
+
+      - name: avg_order_value
+        description: Average value per order
+        agg: average
+        expr: avg_order_value
+        agg_time_dimension: order_date
+
+      - name: unique_customers
+        description: Unique customers
+        agg: count_distinct
+        expr: customer_sk
+        agg_time_dimension: order_date
+
+metrics:
+  - name: total_orders
+    label: Total Orders
+    description: Sum of all orders per customer
+    type: simple
+    type_params:
+      measure: total_orders
+
+  - name: unique_customers
+    label: Unique Customers
+    description: Count of unique customers
+    type: simple
+    type_params:
+      measure: unique_customers
+
+  - name: orders_per_customer
+    label: Orders per Customer
+    description: Total orders divided by distinct customers
+    type: derived
+    type_params:
+      expr: total_orders / unique_customers
+      metrics:
+        - name: total_orders
+        - name: unique_customers
+
+  - name: avg_gap_days
+    label: Avg Purchase Gap
+    description: Average number of days between purchases
+    type: simple
+    type_params:
+      measure: avg_days_between_purchases
+
+  - name: active_since
+    label: Active Since (Days)
+    description: Average number of days since first purchase
+    type: simple
+    type_params:
+      measure: active_since_days
+
