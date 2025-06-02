@@ -1,7 +1,7 @@
 {% set src_table = var('incremental_src_table') %}
 {% set tgt_table = var('incremental_tgt_table') %}
-{% set src_schema = var('incremental_src_table') %}
-{% set tgt_schema = var('incremental_tgt_table') %}
+{% set src_schema = var('incremental_src_schema') %}
+{% set tgt_schema = var('incremental_tgt_schema') %}
  
 {{ config(
     materialized='incremental',
