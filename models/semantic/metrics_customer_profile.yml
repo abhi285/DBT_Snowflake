@@ -1,7 +1,7 @@
 version: 2
 
 semantic_models:
-  - name: fct_customer_profile
+  - name: int_customer_profile
     model: ref('int_customer_profile')
 
     defaults:
